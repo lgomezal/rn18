@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, FlatList, Alert } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import { HouseCell } from '../../widgets'
 import * as api from '../../../api/'
 import styles from './styles'
 
@@ -10,6 +11,7 @@ export default class Houses extends Component {
         super(props)
         this.state = {
             housesList: [],
+            selected: null,
         }
     }
 
@@ -30,11 +32,18 @@ export default class Houses extends Component {
     }
 
     _onHouseTapped(house) {
-        Alert.alert('Casa:', house.nombre)
+        //Alert.alert('Casa:', house.nombre)
+        this.setState({ selected: house })
     }
 
     _renderItem({ item }) {
-        return <HouseCell house={item} onHousePress={(v) => this._onHouseTapped(v)} />
+        return (
+            <HouseCell
+                house={item}
+                onHousePress={(v) => this._onHouseTapped(v)}
+                selected={this.state.selected}
+            />
+        )
     }
 
     render() {
@@ -44,26 +53,10 @@ export default class Houses extends Component {
                     data={this.state.housesList}
                     renderItem={value => this._renderItem(value)}
                     keyExtractor={(item, i) => 'cell' + item.id}
+                    extraData={this.state.selected}
                 />
             </View>
         )
     }
 }
 
-class HouseCell extends Component {
-
-    static defaultProps = {
-        house: null,
-        onHousePress: () => { },
-    }
-
-    render() {
-        const { house } = this.props
-        const name = house ? house.nombre : ''
-        return (
-            <TouchableOpacity onPress={() => this.props.onHousePress(house)} style={{ height: 120, borderWidth: 1, borderColor: 'blue', alignItems: 'center', justifyContent: 'center' }}>
-                <Text>{name}</Text>
-            </TouchableOpacity>
-        )
-    }
-}
