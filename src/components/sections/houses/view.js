@@ -14,7 +14,7 @@ class Houses extends Component {
     }
 
     _onHouseTapped(house) {
-
+        this.props.onHouseTapped()
     }
 
     _renderItem({ item }) {
@@ -37,7 +37,7 @@ class Houses extends Component {
     render() {
         return (
             <View style={styles.container}>
-                { this._renderActivityIndicator()}
+                {this._renderActivityIndicator()}
                 <FlatList
                     data={this.props.list}
                     renderItem={value => this._renderItem(value)}
@@ -62,6 +62,10 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         fetchHousesList: () => {
             dispatch(HousesActions.fetchHousesList())
+        },
+        onHouseTapped: (house) => {
+            dispatch(HousesActions.setItem(house))
+            Actions.characters()
         }
     }
 }
