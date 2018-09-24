@@ -33,6 +33,7 @@ export default class App extends Component {
                             navigationBarStyle={{ backgroundColor: 'rgb(24,24,24)' }}
                             backButtonTintColor={'white'}
                             backButtonTextStyle={{ color: 'white' }}
+                            titleStyle={{ color: 'white' }}
                         />
                     </Stack>
                 </Router>

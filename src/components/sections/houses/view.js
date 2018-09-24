@@ -14,7 +14,7 @@ class Houses extends Component {
     }
 
     _onHouseTapped(house) {
-        this.props.onHouseTapped()
+        this.props.onHouseTapped(house)
     }
 
     _renderItem({ item }) {
@@ -64,8 +64,9 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(HousesActions.fetchHousesList())
         },
         onHouseTapped: (house) => {
+            console.log('house: ', house)
             dispatch(HousesActions.setItem(house))
-            Actions.characters()
+            Actions.characters({ title: house.nombre })
         }
     }
 }
