@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, FlatList, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList, Alert, ActivityIndicator } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { HouseCell } from '../../widgets'
 import * as api from '../../../api/'
@@ -26,9 +26,18 @@ class Houses extends Component {
         )
     }
 
+    _renderActivityIndicator() {
+        return (
+            <View style={{ alignItems: 'center', justifyContent: 'center', position: 'absolute', top: 0, left: 0, bottom: 0, right: 0 }}>
+                <ActivityIndicator size={'large'} color={'white'} animating={this.props.isFetching} />
+            </View >
+        )
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                { this._renderActivityIndicator()}
                 <FlatList
                     data={this.props.list}
                     renderItem={value => this._renderItem(value)}
