@@ -2,10 +2,12 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     cellContainer: {
-        height: 120,
-        borderWidth: 1,
-        borderColor: 'blue',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: '50%',
+        height: 300,
+        backgroundColor: 'rgb(24,24,24)',
+        paddingHorizontal: 4,
+        paddingVertical: 2,
+        borderColor: 'grey',
+        borderWidth: 1
     }
 })
