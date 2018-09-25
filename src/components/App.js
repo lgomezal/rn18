@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, TouchableOpacity, Text } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
 import { Houses, Characters, CharacterDetail } from './sections/'
 import * as api from '../api'
@@ -13,6 +13,12 @@ const reducer = combineReducers(reducers)
 const store = createStore(
     reducer,
     applyMiddleware(thunk.withExtraArgument(api))
+)
+
+const RightButton = props => (
+    <TouchableOpacity style={{ padding: 10 }} onPress={() => { }}>
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>{'Añadir'}</Text>
+    </TouchableOpacity>
 )
 
 export default class App extends Component {
@@ -34,6 +40,7 @@ export default class App extends Component {
                             backButtonTintColor={'white'}
                             backButtonTextStyle={{ color: 'white' }}
                             titleStyle={{ color: 'white' }}
+                            renderRightButton={RightButton}
                         />
                         <Scene
                             key={'characterDetail'}
