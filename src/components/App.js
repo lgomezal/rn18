@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StatusBar } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
 import { Houses, Characters } from './sections/'
-import { configureAxios } from '../api'
+import * as api from '../api'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider, connect } from 'react-redux'
@@ -12,13 +12,13 @@ import * as reducers from '../redux'
 const reducer = combineReducers(reducers)
 const store = createStore(
     reducer,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk.withExtraArgument(api))
 )
 
 export default class App extends Component {
 
     componentWillMount() {
-        configureAxios()
+        api.configureAxios()
         StatusBar.setBarStyle('light-content')
     }
 

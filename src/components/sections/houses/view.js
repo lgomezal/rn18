@@ -64,7 +64,6 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(HousesActions.fetchHousesList())
         },
         onHouseTapped: (house) => {
-            console.log('house: ', house)
             dispatch(HousesActions.setItem(house))
             Actions.characters({ title: house.nombre })
         }

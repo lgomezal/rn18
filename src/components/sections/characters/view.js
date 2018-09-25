@@ -1,13 +1,47 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
+import styles from './styles'
+import { connect } from 'react-redux'
+import * as CharactersActions from '../../../redux/characters/actions'
+import { CharacterCell } from '../../widgets'
 
-export default class Characters extends Component {
+class Characters extends Component {
+
+    componentDidMount() {
+        this.props.fetchCharactersList()
+    }
+
+    _renderItem(item, index) {
+        return <CharacterCell character={item} />
+    }
 
     render() {
+        const { list, isFetching } = this.props
         return (
-            <View style={{ flex: 1, backgroundColor: 'red', alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>PERSONAJES</Text>
+            <View style={styles.container}>
+                <FlatList
+                    data={list}
+                    renderItem={({ item, index }) => this._renderItem(item, index)}
+                    keyExtractor={(item, i) => 'character' + i}
+                />
             </View>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isFetching: state.characters.isFetching,
+        list: state.characters.list,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchCharactersList: () => {
+            dispatch(CharactersActions.fetchCharactersList())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Characters)
