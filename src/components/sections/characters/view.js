@@ -4,6 +4,7 @@ import styles from './styles'
 import { connect } from 'react-redux'
 import * as CharactersActions from '../../../redux/characters/actions'
 import { CharacterCell } from '../../widgets'
+import { Actions } from 'react-native-router-flux'
 
 class Characters extends Component {
 
@@ -12,7 +13,7 @@ class Characters extends Component {
     }
 
     _renderItem(item, index) {
-        return <CharacterCell character={item} />
+        return <CharacterCell character={item} onCharacterPress={this.props.onCharacterTapped} />
     }
 
     render() {
@@ -40,6 +41,10 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         fetchCharactersList: () => {
             dispatch(CharactersActions.fetchCharactersList())
+        },
+        onCharacterTapped: (character) => {
+            dispatch(CharactersActions.setItem(character))
+            Actions.characterDetail({ title: character.nombre })
         }
     }
 }

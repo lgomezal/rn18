@@ -27,6 +27,7 @@ export function fetchCharactersList() {
         if (!house) {
             return
         }
+        dispatch(setList([]))
         dispatch(setFetching(true))
         api
             .fetchCharacters(house.id)

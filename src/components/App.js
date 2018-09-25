@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StatusBar } from 'react-native'
 import { Router, Scene, Actions, Stack } from 'react-native-router-flux'
-import { Houses, Characters } from './sections/'
+import { Houses, Characters, CharacterDetail } from './sections/'
 import * as api from '../api'
 
 import { createStore, applyMiddleware, combineReducers } from 'redux'
@@ -30,6 +30,14 @@ export default class App extends Component {
                         <Scene key='houses' component={Houses} hideNavBar={true} initial={true} />
                         <Scene key='characters'
                             component={Characters}
+                            navigationBarStyle={{ backgroundColor: 'rgb(24,24,24)' }}
+                            backButtonTintColor={'white'}
+                            backButtonTextStyle={{ color: 'white' }}
+                            titleStyle={{ color: 'white' }}
+                        />
+                        <Scene
+                            key={'characterDetail'}
+                            component={CharacterDetail}
                             navigationBarStyle={{ backgroundColor: 'rgb(24,24,24)' }}
                             backButtonTintColor={'white'}
                             backButtonTextStyle={{ color: 'white' }}
